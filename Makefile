@@ -35,7 +35,6 @@ clean:
 	@docker rmi -f $(shell docker images -q)
 
 fclean: clean
-	@find data/wordpress -mindepth 1 ! -name '.gitignore' -delete
 
 .PHONY: all build up down re clean fclean logs rebuild
 
