@@ -44,27 +44,18 @@ RUN apt-get update && apt-get install -y \
 RUN update-alternatives --install /usr/bin/clang clang /usr/bin/clang-12 100 \
     && update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-12 100 \
     && update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-12 100 \
-    && update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-12 100
+    && update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-12 100 \
+    && update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-12 100
 
 # Set environment variables
 ENV CC=clang-12
 ENV CXX=clang++-12
-
-# RUN echo "Using webserv commit: $GIT_COMMIT"
-
-# # Clone repo and checkout specific commit
-# RUN git clone https://github.com/WHaffmans/webserv.git && \
-#     cd webserv && \
-#     git checkout $GIT_COMMIT
-
-# RUN sed -i 's/static constexpr Log::Level COMPILE_TIME_LOG_LEVEL = Log::Level::Info;/static constexpr Log::Level COMPILE_TIME_LOG_LEVEL = Log::Level::Debug;/' webserv/webserv/log/Log.hpp
 
 RUN mkdir -p /tmp/
 
 COPY . /tmp/
 
 RUN rm -rf /tmp/build/
-
 
 RUN cd /tmp && make
 
